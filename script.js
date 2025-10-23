@@ -1,4 +1,4 @@
-
+// --- MENU TOGGLE ---
 const menuToggle = document.getElementById('menu-toggle');
 const navLinks = document.getElementById('nav-links');
 
@@ -27,55 +27,48 @@ fadeElements.forEach(el => {
   appearOnScroll.observe(el);
 });
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+// --- FIREBASE SETUP ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
+import { getDatabase, ref, push, get, child } 
+  from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDUvD2-sAkgl4fHXOxRQ_hrQBOFR4Munek",
-    authDomain: "leon-graphics-ratings.firebaseapp.com",
-    projectId: "leon-graphics-ratings",
-    databaseURL: "https://leon-graphics-ratings-default-rtdb.firebaseio.com/",
-    storageBucket: "leon-graphics-ratings.appspot.com",
-    messagingSenderId: "139896290133",
-    appId: "1:139896290133:web:8f3f4862a7c90484cb4ddc",
-    measurementId: "G-GJR7W3B1MZ"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyDUvD2-sAkgl4fHXOxRQ_hrQBOFR4Munek",
+  authDomain: "leon-graphics-ratings.firebaseapp.com",
+  projectId: "leon-graphics-ratings",
+  databaseURL: "https://leon-graphics-ratings-default-rtdb.firebaseio.com/",
+  storageBucket: "leon-graphics-ratings.appspot.com",
+  messagingSenderId: "139896290133",
+  appId: "1:139896290133:web:8f3f4862a7c90484cb4ddc",
+  measurementId: "G-GJR7W3B1MZ"
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getDatabase(app);
 
-  // Wait for page to fully load
+// --- RATING SYSTEM ---
 document.addEventListener("DOMContentLoaded", () => {
   const stars = document.querySelectorAll("#stars span");
   const msg = document.getElementById("rating-message");
   const avgDisplay = document.getElementById("average-rating");
 
-  // Add event listener for each star
   stars.forEach(star => {
     star.addEventListener("click", async () => {
       const value = parseInt(star.getAttribute("data-value"));
-      
-      // Highlight stars visually
+
       stars.forEach(s => s.classList.remove("active"));
       for (let i = 0; i < value; i++) {
         stars[i].classList.add("active");
       }
 
-      // Save rating in Firebase
       await push(ref(db, "ratings"), value);
       msg.textContent = `Thanks for rating ${value} ⭐`;
       updateAverage();
     });
   });
 
-  // Function to calculate average
   async function updateAverage() {
     const snapshot = await get(child(ref(db), "ratings"));
     if (snapshot.exists()) {
@@ -85,9 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Initial load
   updateAverage();
 });
 </script>
-
-
