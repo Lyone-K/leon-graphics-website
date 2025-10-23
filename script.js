@@ -27,7 +27,7 @@ fadeElements.forEach(el => {
   appearOnScroll.observe(el);
 });
 
-<script type="module">
+<script type="module" src="./script.js"></script>
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
@@ -89,3 +89,4 @@ document.addEventListener("DOMContentLoaded", () => {
   updateAverage();
 });
 </script>
+
