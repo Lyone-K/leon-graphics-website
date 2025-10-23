@@ -1,33 +1,4 @@
-// --- MENU TOGGLE ---
-const menuToggle = document.getElementById('menu-toggle');
-const navLinks = document.getElementById('nav-links');
-
-menuToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-  menuToggle.classList.toggle('active');
-});
-
-// --- FADE-IN ON SCROLL ---
-const fadeElements = document.querySelectorAll('.fade-in');
-
-const appearOptions = {
-  threshold: 0.2,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add('appear');
-    observer.unobserve(entry.target);
-  });
-}, appearOptions);
-
-fadeElements.forEach(el => {
-  appearOnScroll.observe(el);
-});
-
-// --- FIREBASE IMPORTS ---
+// --- FIREBASE IMPORTS (must be at top) ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
 import { getDatabase, ref, push, get, child } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
@@ -46,7 +17,12 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+let analytics;
+try {
+  analytics = getAnalytics(app);
+} catch (e) {
+  console.warn("Analytics not available in this environment:", e);
+}
 const db = getDatabase(app);
 const auth = getAuth();
 
@@ -109,7 +85,6 @@ menuToggle.addEventListener('click', () => {
 
 // --- FADE-IN ON SCROLL ---
 const fadeElements = document.querySelectorAll('.fade-in');
-
 const appearOptions = {
   threshold: 0.2,
   rootMargin: '0px 0px -50px 0px'
