@@ -1,26 +1,3 @@
-// --- MOBILE MENU TOGGLE ---
-const menuToggle = document.getElementById('menu-toggle');
-const navLinks = document.getElementById('nav-links');
-
-menuToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-  menuToggle.classList.toggle('active');
-});
-
-// --- FADE-IN ON SCROLL ---
-const fadeElements = document.querySelectorAll('.fade-in');
-const appearOptions = { threshold: 0.2, rootMargin: '0px 0px -50px 0px' };
-
-const appearOnScroll = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add('appear');
-    observer.unobserve(entry.target);
-  });
-}, appearOptions);
-
-fadeElements.forEach(el => appearOnScroll.observe(el));
-
 // --- FIREBASE IMPORTS ---
 import { initializeApp } 
   from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
@@ -40,27 +17,25 @@ const firebaseConfig = {
   measurementId: "G-B2RQKW50HQ"
 };
 
-// --- INITIALIZE FIREBASE ---
+// ✅ Initialize Firebase FIRST
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth();
+const auth = getAuth(app);
 
-// --- AUTHENTICATION (ANONYMOUS) ---
+// --- AUTHENTICATION ---
 signInAnonymously(auth)
   .then(() => console.log("✅ Signed in anonymously"))
   .catch((error) => console.error("❌ Auth error:", error));
 
-// --- WHEN AUTH READY, INIT RATING SYSTEM ---
+// --- WAIT FOR AUTH ---
 onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log("User authenticated:", user.uid);
     initRatingSystem();
-  } else {
-    console.warn("User not authenticated yet.");
   }
 });
 
-// --- STAR RATING SYSTEM ---
+// --- RATING SYSTEM ---
 function initRatingSystem() {
   const stars = document.querySelectorAll('#stars span');
   const message = document.getElementById('rating-message');
@@ -79,10 +54,9 @@ function initRatingSystem() {
         });
         await updateAverage();
       } catch (error) {
-        console.error("❌ Error saving rating:", error);
+        console.error("Error saving rating:", error);
       }
 
-      // Visual highlight
       stars.forEach(s => s.classList.remove('active'));
       for (let i = 0; i < value; i++) {
         stars[i].classList.add('active');
@@ -104,4 +78,24 @@ function initRatingSystem() {
 
   updateAverage();
 }
+
+// --- MOBILE MENU TOGGLE ---
+const menuToggle = document.getElementById('menu-toggle');
+const navLinks = document.getElementById('nav-links');
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  menuToggle.classList.toggle('active');
+});
+
+// --- FADE-IN EFFECT ---
+const fadeElements = document.querySelectorAll('.fade-in');
+const appearOptions = { threshold: 0.2, rootMargin: '0px 0px -50px 0px' };
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('appear');
+    observer.unobserve(entry.target);
+  });
+}, appearOptions);
+fadeElements.forEach(el => appearOnScroll.observe(el));
 
