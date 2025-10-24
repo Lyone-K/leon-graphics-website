@@ -22,18 +22,13 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
 fadeElements.forEach(el => appearOnScroll.observe(el));
 
 // --- FIREBASE SETUP ---
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import { getAuth, signInAnonymously } 
+  from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
-// ✅ Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyAI1renRwVxkIz9Zd2Oi7l09CDkcoT5Lj0",
-  authDomain: "leon-graphics-ratings-v2.firebaseapp.com",
-  projectId: "leon-graphics-ratings-v2",
-  storageBucket: "leon-graphics-ratings-v2.firebasestorage.app",
-  messagingSenderId: "601026583913",
-  appId: "1:601026583913:web:3d5700e72e4ec1f7a931f8",
-};
+const auth = getAuth();
+signInAnonymously(auth)
+  .then(() => console.log("✅ Signed in anonymously"))
+  .catch((error) => console.error("Auth error:", error));
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -70,4 +65,5 @@ async function updateAverage() {
 }
 
 updateAverage();
+
 
