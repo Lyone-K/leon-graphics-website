@@ -9,13 +9,9 @@ menuToggle.addEventListener('click', () => {
 
 // --- FADE-IN ON SCROLL ---
 const fadeElements = document.querySelectorAll('.fade-in');
+const appearOptions = { threshold: 0.2, rootMargin: '0px 0px -50px 0px' };
 
-const appearOptions = {
-  threshold: 0.2,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('appear');
@@ -23,18 +19,13 @@ const appearOnScroll = new IntersectionObserver(function(entries, observer) {
   });
 }, appearOptions);
 
-fadeElements.forEach(el => {
-  appearOnScroll.observe(el);
-});
+fadeElements.forEach(el => appearOnScroll.observe(el));
 
-// Import the functions you need from the SDKs you need
+// --- FIREBASE SETUP ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// ✅ Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyAI1renRwVxkIz9Zd2Oi7l09CDkcoT5Lj0",
   authDomain: "leon-graphics-ratings-v2.firebaseapp.com",
@@ -42,10 +33,41 @@ const firebaseConfig = {
   storageBucket: "leon-graphics-ratings-v2.firebasestorage.app",
   messagingSenderId: "601026583913",
   appId: "1:601026583913:web:3d5700e72e4ec1f7a931f8",
-  measurementId: "G-B2RQKW50HQ"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
+// --- STAR RATING ---
+const stars = document.querySelectorAll('#stars span');
+const message = document.getElementById('rating-message');
+const avgDisplay = document.getElementById('average-rating');
+
+stars.forEach(star => {
+  star.addEventListener('click', async () => {
+    const value = parseInt(star.getAttribute('data-value'));
+    message.textContent = `You rated this ${value} stars!`;
+
+    try {
+      await addDoc(collection(db, "ratings"), { rating: value, timestamp: new Date() });
+      updateAverage();
+    } catch (error) {
+      console.error("Error saving rating:", error);
+    }
+
+    stars.forEach(s => s.classList.remove('active'));
+    star.classList.add('active');
+  });
+});
+
+async function updateAverage() {
+  const snapshot = await getDocs(collection(db, "ratings"));
+  let total = 0;
+  snapshot.forEach(doc => total += doc.data().rating);
+  const avg = (total / snapshot.size).toFixed(1);
+  avgDisplay.textContent = `Average Rating: ${avg}`;
+}
+
+updateAverage();
 
