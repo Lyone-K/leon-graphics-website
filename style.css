@@ -802,3 +802,18 @@ footer {
   }
 }
 
+.about-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  animation: fadeIn 1.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
