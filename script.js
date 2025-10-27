@@ -109,8 +109,10 @@ async function updateAverage() {
       avgDisplay.textContent = `⭐ ${avg} / 5`;
       avgDisplay.classList.add("glow");
       setTimeout(() => avgDisplay.classList.remove("glow"), 1500);
+      window.onload = updateAverage;
     }
   }
 }
+
 
 
