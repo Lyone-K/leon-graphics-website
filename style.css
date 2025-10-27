@@ -802,18 +802,24 @@ footer {
   }
 }
 
-.about-illustration {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+.about-gif {
+  width: 400px;
+  height: auto;
+  border-radius: 10px;
+  animation: float 3s ease-in-out infinite;
 }
 
-.about-illustration lottie-player {
-  max-width: 400px;
-  width: 100%;
-  height: auto;
+/* Optional floating effect */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
+
+
 
 
 
