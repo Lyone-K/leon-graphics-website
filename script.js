@@ -99,3 +99,18 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
 }, appearOptions);
 fadeElements.forEach(el => appearOnScroll.observe(el));
 
+async function updateAverage() {
+  const snapshot = await get(child(ref(db), "ratings"));
+  if (snapshot.exists()) {
+    const ratings = Object.values(snapshot.val());
+    const avg = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
+    const avgDisplay = document.getElementById("average-rating");
+    if (avgDisplay) {
+      avgDisplay.textContent = `⭐ ${avg} / 5`;
+      avgDisplay.classList.add("glow");
+      setTimeout(() => avgDisplay.classList.remove("glow"), 1500);
+    }
+  }
+}
+
+
