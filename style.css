@@ -315,6 +315,11 @@ body {
   color: #fff;
 }
 
+.homepage-rating {
+  text-align: center;
+  ...
+}
+
 .stars span {
   font-size: 40px;
   cursor: pointer;
@@ -796,3 +801,4 @@ footer {
     text-align: center;
   }
 }
+
