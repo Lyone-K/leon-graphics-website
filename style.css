@@ -820,6 +820,41 @@ footer {
   }
 }
 
+/* Mascot Guide */
+.mascot-container {
+  position: absolute;
+  right: 5%;
+  bottom: 12%;
+  width: 180px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.mascot {
+  width: 100%;
+  animation: floaty 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes floaty {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Mascot points to button */
+.point {
+  animation: point 1.5s ease-in-out infinite;
+}
+
+@keyframes point {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-10deg); }
+}
+
 
 
 
