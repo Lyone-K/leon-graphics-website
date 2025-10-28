@@ -802,15 +802,14 @@ footer {
   }
 }
 
-.about-video {
+.about-gif {
   width: 400px;
   height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
   animation: float 3s ease-in-out infinite;
 }
 
-/* Smooth floating effect */
+/* Optional floating effect */
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);
@@ -819,4 +818,3 @@ footer {
     transform: translateY(-10px);
   }
 }
-
