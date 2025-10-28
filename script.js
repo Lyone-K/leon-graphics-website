@@ -99,6 +99,31 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
 }, appearOptions);
 fadeElements.forEach(el => appearOnScroll.observe(el));
 
+document.addEventListener("DOMContentLoaded", () => {
+  const mascot = document.getElementById("mascot");
+  const portfolioBtn = document.querySelector(".btn-gold");
+
+  // Make mascot wave or float when page loads
+  mascot.classList.add("wave");
+  setTimeout(() => mascot.classList.remove("wave"), 2000);
+
+  // Mascot points toward "View Portfolio" when hovered
+  portfolioBtn.addEventListener("mouseenter", () => {
+    mascot.classList.add("point");
+  });
+
+  portfolioBtn.addEventListener("mouseleave", () => {
+    mascot.classList.remove("point");
+  });
+
+  // Parallax effect on scroll
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    mascot.style.transform = `translateY(${scrollY * 0.1}px)`;
+  });
+});
+
+
 
 
 
