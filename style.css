@@ -802,19 +802,35 @@ footer {
   }
 }
 
-.about-gif {
-  width: 400px;
-  height: auto;
-  border-radius: 10px;
-  animation: float 3s ease-in-out infinite;
+.about-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
 }
 
-/* Optional floating effect */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+.about-illustration img.about-gif {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s ease, filter 0.3s ease;
 }
+
+.about-illustration img.about-gif:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.about-illustration img.about-gif {
+  animation: float 4s ease-in-out infinite;
+}
+
+
