@@ -109,7 +109,7 @@ const projects = [
   {
     title: "Creative Poster Art",
     desc: "Vibrant and bold poster visuals blending typography and texture.",
-    image: "images/project4.png"
+    image: "images/leon2.png"
   },
   {
     title: "Website Interface",
@@ -168,5 +168,6 @@ window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   bg.style.transform = `translateY(${scrollY * 0.2}px) scale(1.05)`;
 });
+
 
 
