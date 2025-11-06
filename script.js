@@ -142,3 +142,23 @@ function updateShowcase() {
     imageEl.classList.remove("fade-out");
   }, 500);
 }
+
+// === Scroll Reactive Motion ===
+window.addEventListener('scroll', () => {
+  const image = document.querySelector('.floating-image');
+  const scrollY = window.scrollY;
+  const section = document.querySelector('.showcase');
+  const sectionTop = section.offsetTop;
+  const sectionHeight = section.offsetHeight;
+
+  // Only activate effect when section is in view
+  if (scrollY + window.innerHeight > sectionTop && scrollY < sectionTop + sectionHeight) {
+    const relativeY = (scrollY - sectionTop) / sectionHeight; // 0 → 1
+    const moveY = relativeY * 40 - 20; // Float up and down (-20px to +20px)
+    const rotateZ = relativeY * 6 - 3; // Gentle rotation (-3deg to +3deg)
+    const scale = 1 + Math.sin(relativeY * Math.PI) * 0.05; // Slight breathing scale
+
+    image.style.transform = `translateY(${moveY}px) rotate(${rotateZ}deg) scale(${scale})`;
+  }
+});
+
