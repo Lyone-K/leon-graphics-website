@@ -114,7 +114,7 @@ const projects = [
   {
     title: "Website Interface",
     desc: "Clean and responsive web interface for a creative agency.",
-    image: "images/project2.png"
+    image: "images/project6.png"
   }
 ];
 
@@ -168,6 +168,7 @@ window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   bg.style.transform = `translateY(${scrollY * 0.2}px) scale(1.05)`;
 });
+
 
 
 
