@@ -98,3 +98,47 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
   });
 }, appearOptions);
 fadeElements.forEach(el => appearOnScroll.observe(el));
+
+// === 3D Showcase Script ===
+const projects = [
+  {
+    title: "Modern Logo Design",
+    desc: "A sleek and dynamic logo crafted for a digital brand identity.",
+    image: "images/project1.png"
+  },
+  {
+    title: "Creative Poster Art",
+    desc: "Vibrant and bold poster visuals blending typography and texture.",
+    image: "images/project2.png"
+  },
+  {
+    title: "Website Interface",
+    desc: "Clean and responsive web interface for a creative agency.",
+    image: "images/project3.png"
+  }
+];
+
+let current = 0;
+const titleEl = document.getElementById("project-title");
+const descEl = document.getElementById("project-desc");
+const imageEl = document.getElementById("project-image");
+
+document.getElementById("next-btn").addEventListener("click", () => {
+  current = (current + 1) % projects.length;
+  updateShowcase();
+});
+
+document.getElementById("prev-btn").addEventListener("click", () => {
+  current = (current - 1 + projects.length) % projects.length;
+  updateShowcase();
+});
+
+function updateShowcase() {
+  imageEl.classList.add("fade-out");
+  setTimeout(() => {
+    titleEl.textContent = projects[current].title;
+    descEl.textContent = projects[current].desc;
+    imageEl.src = projects[current].image;
+    imageEl.classList.remove("fade-out");
+  }, 500);
+}
