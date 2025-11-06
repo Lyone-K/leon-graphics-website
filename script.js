@@ -162,3 +162,10 @@ window.addEventListener('scroll', () => {
   }
 });
 
+// === Background Parallax ===
+window.addEventListener('scroll', () => {
+  const bg = document.querySelector('.showcase-bg');
+  const scrollY = window.scrollY;
+  bg.style.transform = `translateY(${scrollY * 0.2}px) scale(1.05)`;
+});
+
