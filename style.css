@@ -850,10 +850,10 @@ footer {
   position: absolute;
   width: 120%;
   height: 120%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,215,0,0.3), transparent 60%),
+  background: radial-gradient(circle at 30% 30%, rgba(255,215,0,0.25), transparent 60%),
               radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1), transparent 80%);
   z-index: 0;
-  animation: float-bg 10s infinite alternate ease-in-out;
+  will-change: transform;
 }
 
 @keyframes float-bg {
@@ -932,5 +932,6 @@ footer {
   transform: scale(0.95);
   transition: all 0.5s ease;
 }
+
 
 
