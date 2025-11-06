@@ -104,17 +104,17 @@ const projects = [
   {
     title: "Modern Logo Design",
     desc: "A sleek and dynamic logo crafted for a digital brand identity.",
-    image: "images/project1.png"
+    image: "images/leon-logo.png"
   },
   {
     title: "Creative Poster Art",
     desc: "Vibrant and bold poster visuals blending typography and texture.",
-    image: "images/project2.png"
+    image: "images/project4.png"
   },
   {
     title: "Website Interface",
     desc: "Clean and responsive web interface for a creative agency.",
-    image: "images/project3.png"
+    image: "images/project2.png"
   }
 ];
 
@@ -168,4 +168,5 @@ window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   bg.style.transform = `translateY(${scrollY * 0.2}px) scale(1.05)`;
 });
+
 
